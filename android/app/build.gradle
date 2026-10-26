@@ -6,7 +6,8 @@ plugins {
 
 android {
     namespace = "com.coltaudio.mp3converter"
-    compileSdk = 34
+    // SEBELUMNYA 34, DIUBAH MENJADI 35 SESUAI PERMINTAAN LOG
+    compileSdk = 35
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -22,14 +23,14 @@ android {
         applicationId = "com.coltaudio.mp3converter"
         // minSdk 24 dibutuhkan oleh ffmpeg_kit_flutter_audio (Android 7.0+)
         minSdk = 24
-        targetSdk = 34
+        // SEBELUMNYA 34, DIUBAH MENJADI 35
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0.0"
     }
 
     buildTypes {
         release {
-            // Menggunakan debug signing key agar APK Release langsung bisa diinstal di HP tanpa perlu buat file .jks manual
             signingConfig = signingConfigs.debug
             minifyEnabled = false
             shrinkResources = false
