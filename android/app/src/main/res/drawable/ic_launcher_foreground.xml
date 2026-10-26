@@ -1,0 +1,101 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Casing Luar Kaset -->
+    <path
+        android:fillColor="#1E293B"
+        android:strokeColor="#F59E0B"
+        android:strokeWidth="1.5"
+        android:pathData="M 28,32 H 80 A 6,6 0 0 1 86,38 V 70 A 6,6 0 0 1 80,76 H 28 A 6,6 0 0 1 22,70 V 38 A 6,6 0 0 1 28,32 Z"/>
+        
+    <!-- Header Label Emas -->
+    <path
+        android:fillColor="#F59E0B"
+        android:pathData="M 26,36 H 82 A 2,2 0 0 1 84,38 V 46 H 24 V 38 A 2,2 0 0 1 26,36 Z"/>
+
+    <!-- TULISAN "COLT MP3" -->
+    <!-- C -->
+    <path android:fillColor="#0F172A" android:pathData="M31,39 H28 V43 H31 V42 H29 V40 H31 Z"/>
+    <!-- O -->
+    <path android:fillColor="#0F172A" android:pathData="M33,39 H36 V43 H33 Z M34.2,40 H34.8 V42 H34.2 Z"/>
+    <!-- L -->
+    <path android:fillColor="#0F172A" android:pathData="M38,39 V43 H41 V42 H39 V39 Z"/>
+    <!-- T -->
+    <path android:fillColor="#0F172A" android:pathData="M43,39 H47 V40 H45 V43 H44 V40 H43 Z"/>
+    <!-- M -->
+    <path android:fillColor="#0F172A" android:pathData="M50,43 V39 H51 L52,41 L53,39 H54 V43 H53 V40.2 L52,42 L51,40.2 V43 Z"/>
+    <!-- P -->
+    <path android:fillColor="#0F172A" android:pathData="M56,39 H59 V41.5 H56 V43 H55 V39 Z M56,40 H58 V40.8 H56 Z"/>
+    <!-- 3 -->
+    <path android:fillColor="#0F172A" android:pathData="M61,39 H64 V40.5 H62.5 V41.5 H64 V43 H61 V42 H63 V41 H61.5 V40 Z"/>
+
+    <!-- Jendela Tengah Kaset -->
+    <path
+        android:fillColor="#0F172A"
+        android:strokeColor="#475569"
+        android:strokeWidth="0.75"
+        android:pathData="M 33,48 H 75 V 63 H 33 Z"/>
+
+    <!-- Gulungan Pita Kiri -->
+    <path
+        android:fillColor="#F59E0B"
+        android:pathData="M 44,55.5 m -5,0 a 5,5 0 1,0 10,0 a 5,5 0 1,0 -10,0"/>
+    <path
+        android:fillColor="#0F172A"
+        android:pathData="M 44,55.5 m -2,0 a 2,2 0 1,0 4,0 a 2,2 0 1,0 -4,0"/>
+
+    <!-- Gulungan Pita Kanan -->
+    <path
+        android:fillColor="#F59E0B"
+        android:pathData="M 64,55.5 m -5,0 a 5,5 0 1,0 10,0 a 5,5 0 1,0 -10,0"/>
+    <path
+        android:fillColor="#0F172A"
+        android:pathData="M 64,55.5 m -2,0 a 2,2 0 1,0 4,0 a 2,2 0 1,0 -4,0"/>
+
+    <!-- Pita Penghubung -->
+    <path
+        android:strokeColor="#D97706"
+        android:strokeWidth="1"
+        android:pathData="M 44,58.5 H 64"/>
+
+    <!-- TULISAN "44.1kHz" -->
+    <!-- 4 -->
+    <path android:fillColor="#F59E0B" android:pathData="M40.5,65 V67 H42.5 V68 H41.5 V67 H40.5 V68 H39.5 V67 H38 V66.2 L39.5,64.5 H40.5 Z M39,66.2 H40.5 V65 Z"/>
+    <!-- 4 -->
+    <path android:fillColor="#F59E0B" android:pathData="M44.5,65 V67 H46.5 V68 H45.5 V67 H44.5 V68 H43.5 V67 H42 V66.2 L43.5,64.5 H44.5 Z M43,66.2 H44.5 V65 Z"/>
+    <!-- . -->
+    <path android:fillColor="#F59E0B" android:pathData="M47.5,67.2 H48.2 V67.9 H47.5 Z"/>
+    <!-- 1 -->
+    <path android:fillColor="#F59E0B" android:pathData="M49.5,65.2 L50.5,64.5 H51 V68 H50 V65.5 L49.5,65.8 Z"/>
+    <!-- k -->
+    <path android:fillColor="#F59E0B" android:pathData="M52.5,64.2 H53.3 V68 H52.5 Z M55,68 L53.5,66.2 V66 L55,64.2 H55.8 L54,66 L55.8,68 Z"/>
+    <!-- H -->
+    <path android:fillColor="#F59E0B" android:pathData="M56.5,64.5 H57.3 V68 H56.5 Z M58.5,64.5 H59.3 V68 H58.5 Z M57.3,66 H58.5 V66.5 H57.3 Z"/>
+    <!-- z -->
+    <path android:fillColor="#F59E0B" android:pathData="M60.5,65 H62.5 V65.6 L61,67.4 H62.5 V68 H60.5 V67.4 L62,65.6 H60.5 Z"/>
+
+    <!-- Bagian Bawah Kaset -->
+    <path
+        android:fillColor="#0F172A"
+        android:strokeColor="#F59E0B"
+        android:strokeWidth="1"
+        android:pathData="M 36,68 L 40,74 H 68 L 72,68 Z"/>
+
+    <!-- Sekrup Bawah -->
+    <path android:fillColor="#F59E0B" android:pathData="M 39.5,71.5 a 1,1 0 1,1 -2,0 1,1 0 1,1 2,0"/>
+    <path android:fillColor="#F59E0B" android:pathData="M 70.5,71.5 a 1,1 0 1,1 -2,0 1,1 0 1,1 2,0"/>
+
+    <!-- Equalizer Audio Bawah -->
+    <path android:fillColor="#F59E0B" android:pathData="M 34,81 h 2 v 6 h -2 z"/>
+    <path android:fillColor="#FBBF24" android:pathData="M 39,79 h 2 v 10 h -2 z"/>
+    <path android:fillColor="#F59E0B" android:pathData="M 44,77 h 2 v 14 h -2 z"/>
+    <path android:fillColor="#FBBF24" android:pathData="M 49,75 h 2 v 18 h -2 z"/>
+    <path android:fillColor="#F59E0B" android:pathData="M 54,73 h 2 v 22 h -2 z"/>
+    <path android:fillColor="#FBBF24" android:pathData="M 59,75 h 2 v 18 h -2 z"/>
+    <path android:fillColor="#F59E0B" android:pathData="M 64,77 h 2 v 14 h -2 z"/>
+    <path android:fillColor="#FBBF24" android:pathData="M 69,79 h 2 v 10 h -2 z"/>
+    <path android:fillColor="#F59E0B" android:pathData="M 74,81 h 2 v 6 h -2 z"/>
+</vector>
