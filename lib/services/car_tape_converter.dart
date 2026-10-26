@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:ffmpeg_kit_flutter_new_audio/ffmpeg_kit.dart';
+import 'package0:ffmpeg_kit_flutter_new_audio/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter_new_audio/ffmpeg_kit_config.dart';
 import 'package:ffmpeg_kit_flutter_new_audio/return_code.dart';
 import 'package:path/path.dart' as p;
@@ -18,6 +18,10 @@ class ConversionResult {
 }
 
 class CarTapeAudioConverter {
+  static Future<void> cancelCurrentSession() async {
+    await FFmpegKit.cancel();
+  }
+
   static Future<ConversionResult> convertToCarTapeMp3({
     required String inputPath,
     required String bitrateKbps,
@@ -33,14 +37,12 @@ class CarTapeAudioConverter {
         );
       }
 
-      // Tentukan lokasi penyimpanan hasil konversi
       Directory outDir = Directory('/storage/emulated/0/Download/ColtDiesel_MP3');
       try {
         if (!await outDir.exists()) {
           await outDir.create(recursive: true);
         }
       } catch (_) {
-        // Fallback jika Scoped Storage Android 11+ memblokir akses langsung ke folder Download
         final appDir = await getExternalStorageDirectory();
         if (appDir != null) {
           outDir = Directory(p.join(appDir.path, 'ColtDiesel_MP3'));
@@ -50,7 +52,6 @@ class CarTapeAudioConverter {
         }
       }
 
-      // Sanitasi nama file agar kompatibel dengan chip tape mobil lama
       final rawBaseName = p.basenameWithoutExtension(inputPath);
       final cleanName = rawBaseName
           .replaceAll(RegExp(r'[^a-zA-Z0-9_\- ]'), '')
@@ -103,7 +104,13 @@ class CarTapeAudioConverter {
         return ConversionResult(
           success: true,
           outputPath: outputPath,
-          message: 'Berhasil dikonversi ke MP3 CBR $bitrateKbps kbps (44.1kHz Stereo).',
+          message: 'Berhasil dikonversi ke MP3 CBR $bitrateKbps kbps.',
+        );
+      } else if (ReturnCode.isCancel(returnCode)) {
+        return ConversionResult(
+          success: false,
+          outputPath: '',
+          message: 'Konversi dibatalkan.',
         );
       } else {
         final logs = await session.getAllLogsAsString();
