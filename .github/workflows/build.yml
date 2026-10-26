@@ -1,0 +1,78 @@
+name: Build Android Release APK
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-apk:
+    name: Compile ColtMP3 Audio Converter (.apk)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Setup Flutter SDK (3.24.3)
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.3'
+          channel: 'stable'
+          cache: true
+
+      - name: Bootstrap Android Platform Files (Jika folder android belum lengkap)
+        run: |
+          if [ ! -f "android/gradlew" ]; then
+            echo "Menyiapkan struktur native Android secara otomatis..."
+            flutter create --platforms=android --org com.coltaudio --project-name coltmp3_audio_converter .
+          fi
+
+      - name: Install Flutter Dependencies
+        run: flutter pub get
+
+      - name: Verify Code & Analyze
+        run: flutter analyze --no-fatal-infos --no-fatal-warnings
+
+      - name: Build Signed/Debug-Signed Release APK
+        run: flutter build apk --release --no-tree-shake-icons
+
+      - name: Rename APK for Easy Identification on Mobile
+        run: |
+          mkdir -p dist_apk
+          cp build/app/outputs/flutter-apk/*.apk dist_apk/
+          ls -lh dist_apk/
+
+      - name: Upload APK to GitHub Actions Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: coltmp3_audio_converter-release-apk
+          path: |
+            build/app/outputs/flutter-apk/app-release.apk
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish APK to GitHub Releases Page
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.${{ github.run_number }}
+          name: "ColtMP3 Audio Converter v1.0.${{ github.run_number }} (MP3 CBR 44.1kHz)"
+          body: |
+            Build otomatis APK Android Native siap diinstal di HP Android.
+            - Audio Engine: FFmpeg libmp3lame CBR (192 kbps default, 44100 Hz, Stereo)
+            - Kompatibel penuh dengan Head Unit / Tape Mobil Colt Diesel & USB Flashdisk FAT32.
+          files: dist_apk/*.apk
