@@ -68,6 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Permission.storage,
         Permission.audio,
         Permission.notification,
+        Permission.manageExternalStorage,
       ].request();
     }
   }
@@ -96,9 +97,11 @@ class _HomeScreenState extends State<HomeScreen> {
         await _audioPlayer.play();
       }
     } catch (e) {
-      setState(() {
-        _statusMessage = 'Gagal memutar pratinjau audio: $e';
-      });
+      if (mounted) {
+        setState(() {
+          _statusMessage = 'Gagal memutar pratinjau audio: $e';
+        });
+      }
     }
   }
 
