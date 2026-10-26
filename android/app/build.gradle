@@ -6,7 +6,6 @@ plugins {
 
 android {
     namespace = "com.coltaudio.mp3converter"
-    // SEBELUMNYA 34, DIUBAH MENJADI 35 SESUAI PERMINTAAN LOG
     compileSdk = 35
     ndkVersion = flutter.ndkVersion
 
@@ -21,12 +20,14 @@ android {
 
     defaultConfig {
         applicationId = "com.coltaudio.mp3converter"
-        // minSdk 24 dibutuhkan oleh ffmpeg_kit_flutter_audio (Android 7.0+)
         minSdk = 24
-        // SEBELUMNYA 34, DIUBAH MENJADI 35
         targetSdk = 35
         versionCode = 1
         versionName = "1.0.0"
+
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'
+        }
     }
 
     buildTypes {
