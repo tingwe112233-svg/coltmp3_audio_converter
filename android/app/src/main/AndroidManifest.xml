@@ -1,14 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.coltaudio.mp3converter">
 
-    <!-- Izin Penyimpanan Lengkap untuk Android 9/10/11/12/13/14+ -->
+    <!-- Izin Penyimpanan Lengkap (Android 9 s/d 15) -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="29" />
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" />
 
-    <!-- Izin Agar Proses Konversi & Pemutar Tetap Jalan Saat Layar Mati -->
+    <!-- Izin Latar Belakang & Notifikasi (Android 14+ / SDK 35) -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
@@ -16,6 +19,7 @@
         android:label="ColtMP3 Audio Converter"
         android:name="${applicationName}"
         android:requestLegacyExternalStorage="true"
+        android:extractNativeLibs="true"
         android:icon="@mipmap/ic_launcher">
 
         <activity
