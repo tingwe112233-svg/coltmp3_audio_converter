@@ -1,0 +1,31 @@
+name: coltmp3_audio_converter
+description: Aplikasi Android Native Pemutar & Konverter Audio Lokal MP3 CBR 44.1kHz untuk kompatibilitas tape mobil.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # FFmpeg dengan dukungan penuh encoder libmp3lame
+  ffmpeg_kit_flutter_audio: ^6.0.3
+  # Pemutar audio lokal untuk pratinjau sebelum & sesudah konversi
+  just_audio: ^0.9.40
+  # Pemilih file audio dari memori internal / SD Card HP
+  file_picker: ^8.1.2
+  # Manajemen izin penyimpanan Android 10 s/d Android 14+
+  permission_handler: ^11.3.1
+  # Notifikasi foreground agar konversi stabil saat layar mati
+  flutter_local_notifications: ^17.2.2
+  path_provider: ^2.1.4
+  path: ^1.9.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
