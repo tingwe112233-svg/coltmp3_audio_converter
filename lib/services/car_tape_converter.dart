@@ -3,6 +3,7 @@ import 'package:ffmpeg_kit_flutter_new_audio/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter_new_audio/ffmpeg_kit_config.dart';
 import 'package:ffmpeg_kit_flutter_new_audio/return_code.dart';
 import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 
 class ConversionResult {
   final bool success;
@@ -17,13 +18,6 @@ class ConversionResult {
 }
 
 class CarTapeAudioConverter {
-  /// Mengonversi file audio apa pun (m4a, wav, flac, ogg, opus, aac, mp3 VBR)
-  /// menjadi MP3 murni yang 100% terbaca di Head Unit / Tape Mobil Box Colt Diesel:
-  /// - Codec: libmp3lame
-  /// - Sample Rate: 44100 Hz
-  /// - Channels: 2 (Stereo Joint/Standard)
-  /// - Bitrate Mode: Strict CBR (Constant Bitrate) tanpa header VBR/Xing
-  /// - Tagging: ID3v2.3 (kompatibel chip decoder hardware lama)
   static Future<ConversionResult> convertToCarTapeMp3({
     required String inputPath,
     required String bitrateKbps,
@@ -39,19 +33,32 @@ class CarTapeAudioConverter {
         );
       }
 
-      // Simpan ke folder Download/ColtDiesel_MP3 agar mudah disalin ke Flashdisk OTG
-      final outDir = Directory('/storage/emulated/0/Download/ColtDiesel_MP3');
-      if (!await outDir.exists()) {
-        await outDir.create(recursive: true);
+      // Tentukan lokasi penyimpanan hasil konversi
+      Directory outDir = Directory('/storage/emulated/0/Download/ColtDiesel_MP3');
+      try {
+        if (!await outDir.exists()) {
+          await outDir.create(recursive: true);
+        }
+      } catch (_) {
+        // Fallback jika Scoped Storage Android 11+ memblokir akses langsung ke folder Download
+        final appDir = await getExternalStorageDirectory();
+        if (appDir != null) {
+          outDir = Directory(p.join(appDir.path, 'ColtDiesel_MP3'));
+          if (!await outDir.exists()) {
+            await outDir.create(recursive: true);
+          }
+        }
       }
 
-      // Bersihkan karakter aneh/emoji pada nama file
+      // Sanitasi nama file agar kompatibel dengan chip tape mobil lama
       final rawBaseName = p.basenameWithoutExtension(inputPath);
       final cleanName = rawBaseName
           .replaceAll(RegExp(r'[^a-zA-Z0-9_\- ]'), '')
           .trim()
           .replaceAll(RegExp(r'\s+'), '_');
-      final safeName = cleanName.isEmpty ? 'TRACK_${DateTime.now().millisecondsSinceEpoch}' : cleanName;
+      final safeName = cleanName.isEmpty
+          ? 'TRACK_${DateTime.now().millisecondsSinceEpoch}'
+          : cleanName;
       final outputPath = p.join(outDir.path, '${safeName}_${bitrateKbps}kbps_CBR.mp3');
 
       FFmpegKitConfig.enableStatisticsCallback((stats) {
@@ -80,9 +87,12 @@ class CarTapeAudioConverter {
         '${bitrateKbps}k',
         '-bufsize',
         '${int.parse(bitrateKbps) * 2}k',
-        '-write_id3v2', '1',
-        '-id3v2_version', '3',
-        '-write_xing', '0',
+        '-write_id3v2',
+        '1',
+        '-id3v2_version',
+        '3',
+        '-write_xing',
+        '0',
         outputPath,
       ];
 
