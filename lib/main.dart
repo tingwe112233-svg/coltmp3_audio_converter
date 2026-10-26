@@ -7,11 +7,11 @@ import 'services/car_tape_converter.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const CarTapeMp3App());
+  runApp(const MyApp());
 }
 
-class CarTapeMp3App extends StatelessWidget {
-  const CarTapeMp3App({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
