@@ -217,7 +217,6 @@ class _HomeScreenState extends State<HomeScreen> {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            // Kontainer Pemilihan File
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
@@ -281,7 +280,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       fontSize: 13,
-                                      color: isCurrent ? Colors.amber : Colors.white80,
+                                      color: isCurrent ? Colors.amber : Colors.white70,
                                       fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal,
                                     ),
                                   ),
@@ -307,8 +306,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 16),
-
-            // Kontainer Pengaturan & Eksekusi Konversi
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
@@ -343,7 +340,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                   ),
                   const SizedBox(height: 16),
-
                   if (_isConverting) ...[
                     LinearProgressIndicator(
                       value: totalProgress.clamp(0.0, 1.0),
@@ -352,7 +348,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const SizedBox(height: 12),
                   ],
-
                   Row(
                     children: [
                       Expanded(
@@ -394,8 +389,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 20),
-
-            // Daftar Hasil Konversi
             if (_convertedFiles.isNotEmpty) ...[
               Text(
                 'Hasil Konversi (${_convertedFiles.length} Lagu di Download/ColtDiesel_MP3)',
