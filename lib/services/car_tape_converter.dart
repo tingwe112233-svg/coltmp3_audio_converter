@@ -1,7 +1,7 @@
 import 'dart:io';
-import 'package:ffmpeg_kit_flutter_audio/ffmpeg_kit.dart';
-import 'package:ffmpeg_kit_flutter_audio/ffmpeg_kit_config.dart';
-import 'package:ffmpeg_kit_flutter_audio/return_code.dart';
+import 'package:ffmpeg_kit_flutter_new_audio/ffmpeg_kit.dart';
+import 'package:ffmpeg_kit_flutter_new_audio/ffmpeg_kit_config.dart';
+import 'package:ffmpeg_kit_flutter_new_audio/return_code.dart';
 import 'package:path/path.dart' as p;
 
 class ConversionResult {
@@ -45,20 +45,18 @@ class CarTapeAudioConverter {
         await outDir.create(recursive: true);
       }
 
-      // Bersihkan karakter aneh/emoji pada nama file karena tape lama sering error membaca karakter non-ASCII
+      // Bersihkan karakter aneh/emoji pada nama file
       final rawBaseName = p.basenameWithoutExtension(inputPath);
       final cleanName = rawBaseName
           .replaceAll(RegExp(r'[^a-zA-Z0-9_\- ]'), '')
           .trim()
           .replaceAll(RegExp(r'\s+'), '_');
       final safeName = cleanName.isEmpty ? 'TRACK_${DateTime.now().millisecondsSinceEpoch}' : cleanName;
-
       final outputPath = p.join(outDir.path, '${safeName}_${bitrateKbps}kbps_CBR.mp3');
 
       FFmpegKitConfig.enableStatisticsCallback((stats) {
         final timeMs = stats.getTime();
         if (timeMs > 0) {
-          // Estimasi progres visual
           onProgress((timeMs / 1000.0));
         }
       });
@@ -67,7 +65,7 @@ class CarTapeAudioConverter {
         '-y',
         '-i',
         inputPath,
-        '-vn', // Buang cover art video/gambar besar yang sering membuat tape mobil hang/skip
+        '-vn',
         '-acodec',
         'libmp3lame',
         '-ar',
@@ -82,7 +80,9 @@ class CarTapeAudioConverter {
         '${bitrateKbps}k',
         '-bufsize',
         '${int.parse(bitrateKbps) * 2}k',
-        '-write_id3v2', '1', '-id3v2_version', '3', '-write_xing', '0',
+        '-write_id3v2', '1',
+        '-id3v2_version', '3',
+        '-write_xing', '0',
         outputPath,
       ];
 
